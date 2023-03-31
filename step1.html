@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>OpenAI Web Project</title>
+</head>
+<body>
+	<h1>Using OpenAI </h1>
+    <p>OpenAI API Key:</p>
+    <input type="text" id="apiKey">
+    <br><br>
+	<p>Keyword:</p>
+	<input type="text" id="keyword">
+	<br><br>
+	<button onclick="generateTitle()">Create Title</button>
+	<br><br>
+	<p id="result"></p>
+	
+	<script>
+
+		async function generateTitle() {
+            let API_KEY = document.getElementById("apiKey").value;
+
+			const keyword = document.getElementById("keyword").value;
+			const prompt = `Generate an article title related to "${keyword}`;
+
+			const model = "text-davinci-003";
+            const response = await fetch(`https://api.openai.com/v1/completions`,
+                {
+                    body: JSON.stringify({"model": model, "prompt": prompt, "max_tokens": 20}),
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                        Authorization: `Bearer ${API_KEY}`,
+                    },
+                }
+            ).then((response) => {
+                if (response.ok) {
+                    response.json().then((json) => {
+                        const title = json.choices[0].text.trim();
+			            document.getElementById("result").innerHTML = title;
+                    });
+                }
+            });
+		}
+	</script>
+</body>
+</html>
