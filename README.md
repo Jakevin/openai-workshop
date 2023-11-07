@@ -36,14 +36,19 @@ Switched to using GPT-3.5 instead of text-davinci due to the high price. Minor m
 
 Generating an image for the article based on the content returned by OpenAI, using the DALL-E model.
 
-## Step4.html
+## Step4.html/Step5.html
 懶人模式，不想打字，改用語音方式輸入關鍵字，將語音傳給OpenAI做解析。
 
 Lazy mode, don't want to type, switch to voice input to enter keywords, and send the voice to OpenAI for parsing.
 
-## 備註、Note
-在Step4.html時，如果你沒有Local Server，會無法正常的拿到麥克風權限，需要使用 plug-in： Live Server
+## Step6.html
+OpenAI 新功能 Text-to—Speech，文字轉語音的測試，有6個風格可以使用看看
 
-During Step4.html, if you do not have a Local Server, you will not be able to obtain microphone permissions properly. You need to use the plug-in Live Server.
+OpenAI's new feature Text-to-Speech allows testing of converting text into speech with 6 different styles to explore.
+
+## 備註、Note
+在Step4.html/Step5.html時，如果你沒有Local Server，會無法正常的拿到麥克風權限，需要使用 plug-in： Live Server
+
+During Step4.html/Step5.html, if you do not have a Local Server, you will not be able to obtain microphone permissions properly. You need to use the plug-in Live Server.
 
 https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
