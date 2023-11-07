@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 	<title>OpenAI Web Project</title>
 </head>
 <body>
@@ -34,18 +35,14 @@
                 API_KEY = document.getElementById("apiKey").value;
 
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                // const options = { mimeType: 'audio/webm' };
-                mediaRecorder = new MediaRecorder(stream);
-                mediaRecorder.addEventListener('dataavailable', event => {
-                    recordedChunks.push(event.data);
-
+                const options = { mimeType: 'audio/webm' };
+                mediaRecorder = new RecordRTCPromisesHandler(stream, {
+                    type: 'audio',
+                    mimeType:"audio/wav",
+                    recorderType: StereoAudioRecorder,
                 });
-                mediaRecorder.addEventListener("stop", event=>{
-                    const audioBlob = new Blob(recordedChunks, { type: 'audio/webm;codecs=pcm' });
-                    recordedChunks.length = 0 ;
-                    saveAudio(audioBlob);
-                })
-				mediaRecorder.start(1000);
+				mediaRecorder.startRecording();
+
 			} catch (error) {
 				console.error('錄音失敗:', error);
 			}
@@ -53,7 +50,8 @@
 
 		async function stopRecording() {
 			if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-				mediaRecorder.stop();	
+				await mediaRecorder.stopRecording();
+                saveAudio(await mediaRecorder.getBlob())
 			}
 		}
 
@@ -66,7 +64,7 @@
                 const model = "whisper-1";
 
                 let formData = new FormData();
-                formData.append('file', new File([blob], new Date().getTime+"name.webm") );
+                formData.append('file', new File([blob], "name.mp3",{type:"audio/mp3"}) );
                 formData.append('model', model);
 
                 const response = await fetch(`https://api.openai.com/v1/audio/transcriptions`,

@@ -26,7 +26,7 @@
 			const model = "text-davinci-003";
             const response = await fetch(`https://api.openai.com/v1/completions`,
                 {
-                    body: JSON.stringify({"model": model, "prompt": prompt, "max_tokens": 20}),
+                    body: JSON.stringify({"model": model, "prompt": prompt, "max_tokens": 70}),
                     method: "POST",
                     headers: {
                         "content-type": "application/json",
